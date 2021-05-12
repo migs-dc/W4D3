@@ -22,11 +22,11 @@ module Slideable
 
 
   def horizontal_dirs
-    @HORIZONTAL_DIRS
+    HORIZONTAL_DIRS
   end
 
   def diagonal_dirs
-    @DIAGONAL_DIRS
+    DIAGONAL_DIRS
   end
 
 
@@ -34,13 +34,12 @@ module Slideable
   def moves
     res = []
     
-    self.move_dirs.each do |pos| # [0, 1]
+    move_dirs.each do |pos| # [0, 1]
         dx, dy = pos  # 0, 1
         temp = grow_unblocked_moves_in_dir(dx, dy) # 0, 1 => [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6]]
         res += temp 
     end
     res 
-
 
     # iterate over each of the directions in which a slideable piece can move
       # use the Piece subclass' `#move_dirs` method to get this info
@@ -67,19 +66,23 @@ module Slideable
 
     res = []
 
-    row, col = self.pos 
+    row, col = pos 
+    row += dx
+    col += dy
+
     until row < 0 || row > 7 || col < 0 || col > 7
-        row += dx
-        col += dy
-        pos = row, col 
-        if self.board[pos] == self.board.nullpiece 
-            res << pos 
-        elsif self.color != self.board[pos].color 
-            res << pos
+        current_pos = row, col 
+        if board[current_pos].is_a?(NullPiece)
+            res << current_pos 
+        elsif color != board[current_pos].color 
+            res << current_pos
             break
-        elsif self.color == self.board[pos].color 
+        elsif color == board[current_pos].color 
             break
         end
+      
+      row += dx
+      col += dy
     end
     res 
 

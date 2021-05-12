@@ -1,4 +1,6 @@
 require_relative "rook"
+require_relative "bishop"
+require_relative "queen"
 require_relative "nullpiece"
 
 class Board
@@ -70,7 +72,7 @@ end
 b = Board.new
 b.set_up_board
 b.render
-r = Rook.new(:B, b, [3,0])
+r = Bishop.new(:B, b, [3,0])
 pos = [3,0]
 b[pos] = r 
 b.render 

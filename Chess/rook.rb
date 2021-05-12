@@ -11,8 +11,7 @@ class Rook < Piece
   protected
 
   def move_dirs
-    p 'rook'
-    moves = horizontal_dirs.dup 
-    # a rook can move horizontally (across rows and columns)
+    horizontal_dirs
+    
   end
 end

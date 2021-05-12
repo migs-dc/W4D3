@@ -11,6 +11,8 @@ module Stepable
     # return the final array of moves
   end
 
+  
+
   private
 
   def move_diffs

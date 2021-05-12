@@ -11,7 +11,7 @@ class Bishop < Piece
   protected
 
   def move_dirs
-    moves = diagonal_dirs 
+    diagonal_dirs 
     # a bishop can move diagonally
   end
 end
