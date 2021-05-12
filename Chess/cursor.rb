@@ -78,7 +78,7 @@ class Cursor
   def handle_key(key)
     x = KEYMAP[key]
     case x
-    when :return || :space
+    when :return, :space
       cursor_pos
     when :left, :right, :up, :down
       update_pos(MOVES[x])

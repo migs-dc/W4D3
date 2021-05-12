@@ -57,34 +57,36 @@ class Board
     @rows[row][col] = value
   end
 
-  def render
-    print " " 
-    (0..7).each { |i| print " #{i}" }
-    puts
+  # def render
+  #   print " " 
+  #   (0..7).each { |i| print " #{i}" }
+  #   puts
 
-    (0..7).each do |row|
-      print "#{row}" 
-      (0..7).each do |col|
-        print " #{@rows[row][col].color}"
-      end
-      puts
-    end
-  end
+  #   (0..7).each do |row|
+  #     print "#{row}" 
+  #     (0..7).each do |col|
+  #       print " #{@rows[row][col].color}"
+  #     end
+  #     puts
+  #   end
+  # end
 
   attr_reader :rows
 end
 
-b = Board.new
-b.set_up_board
-b.render
 
-pos = [2,1]
 
-r = Pawn.new(:W, b, pos)
-b[pos] = r 
-b.render 
-b.move_piece([2, 1], [1,0])
-b.render 
+# b = Board.new
+# b.set_up_board
+# b.render
+
+# pos = [2,1]
+
+# r = Pawn.new(:W, b, pos)
+# b[pos] = r 
+# b.render 
+# b.move_piece([2, 1], [1,0])
+# b.render 
 
 # invalid move:
 # b.move_piece([1,0], [0,0])
