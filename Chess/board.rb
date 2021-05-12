@@ -76,9 +76,9 @@ b = Board.new
 b.set_up_board
 b.render
 
-pos = [2,0]
+pos = [5,1]
 
-r = King.new(:B, b, pos)
+r = Pawn.new(:B, b, pos)
 b[pos] = r 
 b.render 
 p r.moves

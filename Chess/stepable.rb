@@ -5,11 +5,10 @@ module Stepable
     res = []
     move_diffs.each do |move|
       current_pos = [ pos[0]+move[0], pos[1]+move[1] ]
-      if board[current_pos].is_a?(NullPiece) && on_board?(current_pos)
-        res << current_pos
-
-      elsif board[current_pos].color != color && on_board?(current_pos) 
-        res << current_pos
+      if on_board?(current_pos)
+        if board[current_pos].is_a?(NullPiece) || board[current_pos].color != color
+          res << current_pos
+        end
       end
     end
     res
