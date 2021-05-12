@@ -3,7 +3,7 @@ require_relative 'slideable'
 
 class Rook < Piece
   include Slideable
-
+  
   def symbol
     '♜'.colorize(color)
   end
@@ -11,7 +11,8 @@ class Rook < Piece
   protected
 
   def move_dirs
-    # return the directions in which a rook can move
+    p 'rook'
+    moves = horizontal_dirs.dup 
     # a rook can move horizontally (across rows and columns)
   end
 end

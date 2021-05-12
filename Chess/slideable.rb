@@ -7,32 +7,40 @@ module Slideable
       # the row increases by 0 and the column increases by 1
   HORIZONTAL_DIRS = [
     [0, -1], # left
-    [1, 0], # right [0, 1]
-    [:dx, :dy], # up (vertical)
-    [:dx, :dy]  # down (vertical)
+    [0, 1], # right [0, 1]
+    [-1, 0], # up (vertical)
+    [1, 0]  # down (vertical)
   ].freeze # prevents any mutations to outer array
 
   # DIAGONAL_DIRS stores an array of diagonal directions
   DIAGONAL_DIRS = [
-    [:dx, :dy], # up + left [-1, -1]
-    [:dx, :dy], # up + right
-    [:dx, :dy], # down + left
-    [:dx, :dy]  # down + right
+    [-1, -1], # up + left [-1, -1]
+    [-1, 1], # up + right
+    [1, -1], # down + left
+    [1, 1]  # down + right
   ].freeze
 
 
   def horizontal_dirs
-    # getter for HORIZONTAL_DIRS
+    @HORIZONTAL_DIRS
   end
 
   def diagonal_dirs
-    # getter for DIAGONAL_DIRS
+    @DIAGONAL_DIRS
   end
 
 
   # should return an array of places a Piece can move to
   def moves
-    # create array to collect moves
+    res = []
+    
+    self.move_dirs.each do |pos| # [0, 1]
+        dx, dy = pos  # 0, 1
+        temp = grow_unblocked_moves_in_dir(dx, dy) # 0, 1 => [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6]]
+        res += temp 
+    end
+    res 
+
 
     # iterate over each of the directions in which a slideable piece can move
       # use the Piece subclass' `#move_dirs` method to get this info
@@ -47,6 +55,7 @@ module Slideable
   private
 
   def move_dirs
+    move = []
     # subclass implements this
     raise NotImplementedError # this only executes if 
   end
@@ -55,7 +64,24 @@ module Slideable
   # this helper method is only responsible for collecting all moves in a given direction
   # the given direction is represented by two args, the combination of a dx and dy
   def grow_unblocked_moves_in_dir(dx, dy)
-    # create an array to collect moves
+
+    res = []
+
+    row, col = self.pos 
+    until row < 0 || row > 7 || col < 0 || col > 7
+        row += dx
+        col += dy
+        pos = row, col 
+        if self.board[pos] == self.board.nullpiece 
+            res << pos 
+        elsif self.color != self.board[pos].color 
+            res << pos
+            break
+        elsif self.color == self.board[pos].color 
+            break
+        end
+    end
+    res 
 
     # get the piece's current row and current column
 

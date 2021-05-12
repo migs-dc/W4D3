@@ -1,4 +1,4 @@
-#edit test
+require_relative "rook"
 require_relative "nullpiece"
 
 class Board
@@ -30,16 +30,12 @@ class Board
     raise "invalid position" if coordinates.any? { |i| !nums.include?(i) }
     raise "no piece in position" if self[start_pos].is_a?(NullPiece)
 
-    #changing the @ piece.pos variable
-    self[start_pos].pos = end_pos
-    # self[end_pos].pos = start_pos
+    if self[start_pos].moves.include?(end_pos) 
+      self[end_pos] = self[start_pos] # [0, 0] => [0, 5]
+      self[end_pos].change_pos(end_pos) 
+      self[start_pos] = nullpiece
+    end
 
-    #swap
-    temp = self[end_pos]
-    self[end_pos] = self[start_pos]
-    self[start_pos] = temp
-
-  
   end
 
   #----------others-------------------------#
@@ -74,13 +70,17 @@ end
 b = Board.new
 b.set_up_board
 b.render
-
+r = Rook.new(:B, b, [3,0])
+pos = [3,0]
+b[pos] = r 
+b.render 
+p r.moves
 #
 
-b.move_piece([0,0],[2,1]) 
+# b.move_piece([0,0],[2,1]) 
 
 # b.move_piece([0,0],[9,1]) #invalid move
 
 # b.move_piece([2,1],[0,0]) #no piece
 
-b.render
+# b.render
