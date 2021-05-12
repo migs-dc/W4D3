@@ -1,3 +1,4 @@
+#edit test
 require_relative "nullpiece"
 
 class Board
