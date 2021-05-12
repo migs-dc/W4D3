@@ -80,9 +80,11 @@ class Cursor
     case x
     when :return, :space
       cursor_pos
+      
     when :left, :right, :up, :down
       update_pos(MOVES[x])
       return nil
+
     when :ctrl_c
       Process.exit(0)
     end

@@ -11,15 +11,16 @@ class Board
   def initialize
     @rows = Array.new(8) { Array.new(8) }
     @nullpiece = NullPiece.instance 
+    set_up_board
   end
 
   def set_up_board
     (0..7).each do |row|
       (0..7).each do |col|
          if row == 0 || row == 1
-          @rows[row][col] = Piece.new(:B, self, [row,col])
+          @rows[row][col] = Knight.new(:B, self, [row,col])
          elsif  row == 6 || row == 7 
-          @rows[row][col] = Piece.new(:W, self, [row,col])
+          @rows[row][col] = Knight.new(:W, self, [row,col])
          else
           # @rows[row][col] = NullPiece.new(:-, self, [row,col])
           @rows[row][col] = @nullpiece 
@@ -34,13 +35,11 @@ class Board
     coordinates = start_pos + end_pos
     raise "invalid position" if coordinates.any? { |i| !nums.include?(i) }
     raise "no piece in position" if self[start_pos].is_a?(NullPiece)
-    raise "invalid move" if !self[start_pos].moves.include?(end_pos)
-
 
     if self[start_pos].moves.include?(end_pos) 
       self[end_pos] = self[start_pos] # [0, 0] => [0, 5]
       self[end_pos].change_pos(end_pos) 
-      self[start_pos] = @nullpiece
+      self[start_pos] = nullpiece
     end
 
   end
@@ -74,24 +73,17 @@ class Board
   attr_reader :rows
 end
 
-
-
 # b = Board.new
 # b.set_up_board
 # b.render
 
-# pos = [2,1]
+# pos = [5 ,1]
 
-# r = Pawn.new(:W, b, pos)
+# r = Pawn.new(:B, b, pos)
 # b[pos] = r 
 # b.render 
-# b.move_piece([2, 1], [1,0])
-# b.render 
-
-# invalid move:
-# b.move_piece([1,0], [0,0])
-# b.render
-
+# p r.moves
+#
 
 # b.move_piece([0,0],[2,1]) 
 

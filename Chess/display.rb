@@ -3,6 +3,7 @@ require_relative "board"
 require_relative "cursor"
 
 class Display
+  attr_reader :board
 
   def initialize
     @board = Board.new
@@ -17,7 +18,13 @@ class Display
     (0..7).each do |row|
       print "#{row}" 
       (0..7).each do |col|
-        print " #{@board.rows}"
+        pos = [row, col]
+        if @cursor.cursor_pos == pos
+          print " #{@board[pos].symbol}".colorize(:red)
+        else
+          pos = [row, col]
+          print " #{@board[pos].symbol}".colorize(:blue)
+        end
       end
       puts
     end
@@ -25,3 +32,6 @@ class Display
 
 end
 
+d = Display.new
+d.render
+k = Knight.new(:B, d.board, [0,1])
