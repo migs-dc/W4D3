@@ -4,6 +4,8 @@ require 'singleton'
 
 class NullPiece < Piece
 
+  attr_reader :color
+
   include Singleton 
 
   def initialize #(color, board, pos)  
@@ -11,6 +13,9 @@ class NullPiece < Piece
     @color = :-
   end
 
+  def symbol
+    # ''.colorize(color)
+  end
 
 
 

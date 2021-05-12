@@ -76,9 +76,9 @@ b = Board.new
 b.set_up_board
 b.render
 
-pos = [4,0]
+pos = [2,0]
 
-r = Knight.new(:B, b, pos)
+r = King.new(:B, b, pos)
 b[pos] = r 
 b.render 
 p r.moves
