@@ -5,9 +5,13 @@ require_relative "cursor"
 class Display
 
   def initialize
-    @cursor = Cursor.new([0,0], board)
+    @board = Board.new
+    @cursor = Cursor.new([0,0], @board)
   end
 
-  
+  def render(cursor_pos)
+    
+  end 
+
 end
 
