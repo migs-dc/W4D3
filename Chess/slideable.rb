@@ -33,7 +33,6 @@ module Slideable
   # should return an array of places a Piece can move to
   def moves
     res = []
-    
     move_dirs.each do |pos| # [0, 1]
         dx, dy = pos  # 0, 1
         temp = grow_unblocked_moves_in_dir(dx, dy) # 0, 1 => [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6]]
@@ -52,7 +51,6 @@ module Slideable
 
 
   private
-
   def move_dirs
     move = []
     # subclass implements this
@@ -63,7 +61,6 @@ module Slideable
   # this helper method is only responsible for collecting all moves in a given direction
   # the given direction is represented by two args, the combination of a dx and dy
   def grow_unblocked_moves_in_dir(dx, dy)
-
     res = []
 
     row, col = pos 
@@ -105,6 +102,7 @@ module Slideable
 
     # return the final moves array
   end
+  
 end
 
 
