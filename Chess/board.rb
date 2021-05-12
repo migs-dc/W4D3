@@ -34,11 +34,13 @@ class Board
     coordinates = start_pos + end_pos
     raise "invalid position" if coordinates.any? { |i| !nums.include?(i) }
     raise "no piece in position" if self[start_pos].is_a?(NullPiece)
+    raise "invalid move" if !self[start_pos].moves.include?(end_pos)
+
 
     if self[start_pos].moves.include?(end_pos) 
       self[end_pos] = self[start_pos] # [0, 0] => [0, 5]
       self[end_pos].change_pos(end_pos) 
-      self[start_pos] = nullpiece
+      self[start_pos] = @nullpiece
     end
 
   end
@@ -76,13 +78,18 @@ b = Board.new
 b.set_up_board
 b.render
 
-pos = [5,1]
+pos = [2,1]
 
-r = Pawn.new(:B, b, pos)
+r = Pawn.new(:W, b, pos)
 b[pos] = r 
 b.render 
-p r.moves
-#
+b.move_piece([2, 1], [1,0])
+b.render 
+
+# invalid move:
+# b.move_piece([1,0], [0,0])
+# b.render
+
 
 # b.move_piece([0,0],[2,1]) 
 
